@@ -203,6 +203,7 @@ To customize, define these resources in your application theme or resource dicti
 |`it:kbd:standard` | Italian
 |`it-CH:kbd:standard` | Italian (Switzerland)
 |`ja:ime:kana` | Japanese (Kana)
+|`ko:ime:hangul` | Korean (Hangul)
 |`kn-IN:kbd:standard` | Kannada (India)
 |`kk:kbd:standard` | Kazakh
 |`km-KH:kbd:standard` | Khmer (Cambodia)
@@ -242,6 +243,53 @@ To customize, define these resources in your application theme or resource dicti
 |`uz-UZ:kbd:standard` | Uzbek (Uzbekistan)
 |`vi:kbd:standard` | Vietnamese
 |`zu:kbd:standard` | Zulu
+|`zh:ime:rime` | Chinese (RIME) — requires the `Avalonia.Controls.VirtualKeyboard.Ime.Rime` plugin package
+
+## RIME Input Method Engine
+
+The [RIME](https://rime.im/) input method engine provides Chinese text input (Pinyin and more). It is distributed as a separate plugin package that bundles native binaries and schema data.
+
+### Installation
+
+```bash
+dotnet add package Avalonia.Controls.VirtualKeyboard.Ime.Rime
+```
+
+This package includes the RIME native binary for all supported platforms and the Luna Pinyin schema data.
+
+### Enabling RIME
+
+Call `WithVirtualKeyboardRimePlugin()` on your `AppBuilder` and ensure `DataPath` is set in `VirtualKeyboardOptions`:
+
+```csharp
+using Avalonia.Controls;
+
+public static AppBuilder BuildAvaloniaApp()
+    => AppBuilder.Configure<App>()
+        .UsePlatformDetect()
+        .WithVirtualKeyboardOptions(new VirtualKeyboardOptions
+        {
+            DataPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "MyApp", "keyboard-data")
+        })
+        .WithVirtualKeyboardRimePlugin()
+        .LogToTrace();
+```
+
+:::warning
+`VirtualKeyboardOptions.DataPath` is **required** when using RIME. This path specifies a writable directory where RIME stores user dictionaries and compiled schema data. If `DataPath` is not set, the application will throw an `InvalidOperationException` at startup.
+:::
+
+### Using RIME in XAML
+
+```xml
+<VirtualKeyboardScope InputMethods="en-US:kbd:standard, zh:ime:rime">
+    <StackPanel>
+        <TextBox PlaceholderText="Type in English or Chinese"/>
+    </StackPanel>
+</VirtualKeyboardScope>
+```
 
 ## See also
 

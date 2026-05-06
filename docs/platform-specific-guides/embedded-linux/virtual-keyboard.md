@@ -150,6 +150,12 @@ var japaneseKana = VirtualKeyboardInputMethod.GetInputMethodById("ja:ime:kana");
 
 The virtual keyboard component supports a wide range of input method identifiers for different languages. See the [virtual keyboard control](/controls/input/text-input/virtualkeyboard) page for a list of supported identifiers.
 
+## RIME Input Method Engine
+
+The Virtual Keyboard supports the [RIME](https://rime.im/) input method engine for Chinese text input. RIME support is provided as a separate plugin package.
+
+See the [VirtualKeyboard control reference](/controls/input/text-input/virtualkeyboard#rime-input-method-engine) for installation and configuration instructions.
+
 ## TextInputOptions
 
 You can customize how the virtual keyboard behaves with different input fields using the `TextInputOptions` attached properties:
